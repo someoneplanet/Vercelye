@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APK Cloner</title>
+</head>
+<body>
+    <h1>APK Cloner</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="apkFile">Upload APK:</label>
+        <input type="file" id="apkFile" name="apkFile" accept=".apk" required>
+        <button type="submit">Clone APK</button>
+    </form>
+    <div id="response"></div>
+    <script>
+        const form = document.getElementById('uploadForm');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            });
+            const result = await response.json();
+            document.getElementById('response').textContent = result.message;
+        });
+    </script>
+</body>
+</html>
